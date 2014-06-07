@@ -3,7 +3,7 @@ var allGroups = app.activeDocument.layerSets;
 var len = allGroups.length;
 
 // Ask for Folder
-var outputFolder = Folder.selectDialog("Select a folder to process");
+var outputFolder = Folder.selectDialog("Select destination folder");
 
 // Iterate groups from bottom to top
 for (var i = len-1; i >= 0; i--) {
@@ -22,6 +22,10 @@ for (var i = len-1; i >= 0; i--) {
         var master = allGroups[i];
     } else {
         master.visible = 1;
+
+        // Remove ^ simbol from filename
+        var re = /(?!\^\s*).+/;
+        groupName = re.match(groupName);
     }
     
     saveFile = File(outputFolder + "/" + groupName + ".jpg");
