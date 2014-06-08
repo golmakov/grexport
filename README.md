@@ -14,6 +14,8 @@ You can exclude group from export by setting group colour to red.
 
 The visible layer which hadn't been put into any of the groups is exported to all of the files.
 
+You can try scripts on the **sample.psd** file.
+
 
 ## Installation
 
