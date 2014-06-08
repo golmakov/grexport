@@ -8,6 +8,8 @@ If layer name starts with a "^" sign, that layer would be exported with the down
 
 If group needs to be shared between all exported pages, place "#" sign in it name and make that group visible before export.
 
+You can exclude group from export by setting group colour to red.
+
 The visible layer which hadn't been put into any of the groups is exported to all of the files.
 
 

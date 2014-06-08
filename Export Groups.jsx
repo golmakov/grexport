@@ -19,7 +19,7 @@ for (var i = len-1; i >= 0; i--) {
         continue;
     }
     
-    // Check it isn't a pop-up
+    // Check if it isn't a pop-up
     if (groupName[0] != "^") {
         var master = allGroups[i];
     } else {
@@ -30,8 +30,12 @@ for (var i = len-1; i >= 0; i--) {
         groupName = groupName.match(re);
     }
     
-    saveFile = File(outputFolder + "/" + groupName + ".jpg");
-    SaveForWeb(saveFile);
+    // Ignore red colored groups
+    app.activeDocument.activeLayer = allGroups[i];
+    if (getLayerColour() != "red") {
+        saveFile = File(outputFolder + "/" + groupName + ".jpg");
+        SaveForWeb(saveFile);
+    }
     
     // Hide for cleanup
     allGroups[i].visible = 0;
@@ -72,4 +76,15 @@ function RestoreState(allGroups, state) {
     for (var i in state) {
         allGroups[state[i]].visible = 1;
     }
+}
+
+
+// Return active layer color (found somewere in the internets)
+function getLayerColour(){
+    //Colours returned ....
+    // "none","red","orange","yellowColor","grain","blue","violet","gray"
+    var ref = new ActionReference(); 
+    ref.putEnumerated( charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt") ); 
+    var appDesc = executeActionGet(ref); 
+    return typeIDToStringID(appDesc.getEnumerationValue(stringIDToTypeID('color')) );
 }
