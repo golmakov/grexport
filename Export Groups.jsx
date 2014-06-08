@@ -25,7 +25,7 @@ for (var i = len-1; i >= 0; i--) {
 
         // Remove ^ simbol from filename
         var re = /(?!\^\s*).+/;
-        groupName = re.match(groupName);
+        groupName = groupName.match(re);
     }
     
     saveFile = File(outputFolder + "/" + groupName + ".jpg");
