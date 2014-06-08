@@ -10,9 +10,11 @@ If group needs to be shared between all exported pages, place "#" sign in it nam
 
 You can exclude group from export by setting group colour to red.
 
+*Export Selected Groups* exports only groups that have been coloured in yellow.
+
 The visible layer which hadn't been put into any of the groups is exported to all of the files.
 
 
 ## Installation
 
-Place *Export Groups.jsx* file in folder *"Photoshop/Presets/Scripts/"* and restart Photoshop. Script is now acsessible through Photoshop *"File > Scripts > Export Groups"* menu item.
+Place *Export All Groups.jsx* and *Export Selected Groups.jsx*  files in folder *"Photoshop/Presets/Scripts/"* and restart Photoshop. Scripts are now acsessible through Photoshop *"File > Scripts > Export All Groups"* and *"Export Selected Groups"* menu items.
