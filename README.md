@@ -11,6 +11,6 @@ If group needs to be shared between all exported pages, place "#" sign in it nam
 The visible layer which hadn't been put into any of the groups is exported to all of the files.
 
 
-## Instalation
+## Installation
 
 Place *Export Groups.jsx* file in folder *"Photoshop/Presets/Scripts/"* and restart Photoshop. Script is now acsessible through Photoshop *"File > Scripts > Export Groups"* menu item.
