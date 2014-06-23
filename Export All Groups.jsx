@@ -1,49 +1,52 @@
-﻿// List all top level groups in file
-var allGroups = app.activeDocument.layerSets;
-var len = allGroups.length;
-
-// Ask for Folder
+﻿// Ask for Folder
 var outputFolder = Folder.selectDialog("Select destination folder");
 
-var state = SaveState(allGroups, len);
+if (outputFolder != null) {
 
-// Iterate groups from bottom to top
-for (var i = len-1; i >= 0; i--) {
-    var groupName = allGroups[i].name;
-    
-    // Show Group
-    allGroups[i].visible = 1;
-    
-    // If name start with # skip this layer
-    if (groupName[0] == "#") {
-        continue;
-    }
-    
-    // Check if it isn't a pop-up
-    if (groupName[0] != "^") {
-        var master = allGroups[i];
-    } else {
-        master.visible = 1;
+    // List all top level groups in file
+    var allGroups = app.activeDocument.layerSets;
+    var len = allGroups.length;
 
-        // Remove ^ simbol from filename
-        var re = /(?!\^\s*).+/;
-        groupName = groupName.match(re);
+    var state = SaveState(allGroups, len);
+
+    // Iterate groups from bottom to top
+    for (var i = len-1; i >= 0; i--) {
+        var groupName = allGroups[i].name;
+        
+        // Show Group
+        allGroups[i].visible = 1;
+        
+        // If name start with # skip this layer
+        if (groupName[0] == "#") {
+            continue;
+        }
+        
+        // Check if it isn't a pop-up
+        if (groupName[0] != "^") {
+            var master = allGroups[i];
+        } else {
+            master.visible = 1;
+
+            // Remove ^ simbol from filename
+            var re = /(?!\^\s*).+/;
+            groupName = groupName.match(re);
+        }
+        
+        // Ignore red colored groups
+        app.activeDocument.activeLayer = allGroups[i];
+        if (getLayerColour() != "red") {
+            saveFile = File(outputFolder + "/" + groupName + ".jpg");
+            SaveForWeb(saveFile);
+        }
+        
+        // Hide for cleanup
+        allGroups[i].visible = 0;
+        master.visible = 0;
     }
-    
-    // Ignore red colored groups
-    app.activeDocument.activeLayer = allGroups[i];
-    if (getLayerColour() != "red") {
-        saveFile = File(outputFolder + "/" + groupName + ".jpg");
-        SaveForWeb(saveFile);
-    }
-    
-    // Hide for cleanup
-    allGroups[i].visible = 0;
-    master.visible = 0;
+
+    RestoreState(allGroups, state);
+
 }
-
-RestoreState(allGroups, state);
-
 
 
 function SaveForWeb(saveFile) {  
