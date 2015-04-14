@@ -7,8 +7,6 @@ if (outputFolder != null) {
     var allGroups = app.activeDocument.layerSets;
     var len = allGroups.length;
 
-    var state = SaveState(allGroups, len);
-
     // Iterate groups from bottom to top
     for (var i = len-1; i >= 0; i--) {
         var groupName = allGroups[i].name;
@@ -44,8 +42,6 @@ if (outputFolder != null) {
         master.visible = 0;
     }
 
-    RestoreState(allGroups, state);
-
 }
 
 
@@ -57,28 +53,6 @@ function SaveForWeb(saveFile) {
     sfwOptions.optimized = true;   
     sfwOptions.quality = 80; //0-100   
     activeDocument.exportDocument(saveFile, ExportType.SAVEFORWEB, sfwOptions);  
-}
-
-
-// Hide all groups and return array with visible ones
-function SaveState(allGroups, length) {
-    var state = [];
-    for (var i = 0; i < length; i++) {
-        if (allGroups[i].name[0] != "#") {
-            if (allGroups[i].visible == 1) {
-                state.push(i);
-                allGroups[i].visible = 0;
-            }
-        }
-    }
-    return state;
-}
-
-// Restore group layers state
-function RestoreState(allGroups, state) {
-    for (var i in state) {
-        allGroups[state[i]].visible = 1;
-    }
 }
 
 
